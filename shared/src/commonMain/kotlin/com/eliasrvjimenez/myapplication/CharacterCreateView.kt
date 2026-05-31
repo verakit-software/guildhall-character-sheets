@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.foundation.layout.padding
 
 @Composable
 @Preview
@@ -35,7 +36,6 @@ fun CharacterCreateView(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = androidx.compose.foundation.layout.padding(Modifier.fillMaxSize(), innerPadding),
         ) {
             /* TODO: Implement character creation form here */
         }
