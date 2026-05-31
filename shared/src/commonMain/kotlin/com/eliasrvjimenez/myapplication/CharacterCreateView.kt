@@ -31,11 +31,11 @@ fun CharacterCreateView(
                 }
             )
         }
-    ) {
+    ) { innerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize(),
+            modifier = androidx.compose.foundation.layout.padding(Modifier.fillMaxSize(), innerPadding),
         ) {
             /* TODO: Implement character creation form here */
         }
