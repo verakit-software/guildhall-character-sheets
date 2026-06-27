@@ -42,7 +42,7 @@ fun App(
     MaterialTheme {
         Scaffold (
             floatingActionButton = { if (isFabVisible) CharacterListFAB(navController) },
-            modifier = Modifier.fillMaxSize().safeContentPadding()
+            modifier = Modifier.fillMaxSize()
         ){ paddingValues ->
             NavHost(
                 navController = navController,
