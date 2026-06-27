@@ -71,7 +71,13 @@ fun App(
                     NavigationBarItem(
                         selected = currentRoute == NavigationRoutes.WIKI_HOME ||
                                 currentRoute?.startsWith("wiki_class") == true,
-                        onClick = { navController.navigate(NavigationRoutes.WIKI_HOME) },
+                        onClick = {
+                            navController.navigate(NavigationRoutes.WIKI_HOME) {
+                                launchSingleTop = true
+                                restoreState = true
+                                popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            }
+                        },
                         icon = { Icon(Icons.Default.MenuBook, contentDescription = "Wiki") },
                         label = { Text("Wiki") }
                     )
