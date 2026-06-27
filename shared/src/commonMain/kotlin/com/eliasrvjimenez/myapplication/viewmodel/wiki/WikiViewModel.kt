@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.apollographql.apollo.ApolloClient
 import com.eliasrvjimenez.myapplication.GetClassDetailQuery
 import com.eliasrvjimenez.myapplication.GetClassesQuery
+import com.eliasrvjimenez.myapplication.util.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -35,24 +36,23 @@ class WikiViewModel(
 
     fun fetchClasses() {
         viewModelScope.launch {
-            println("WikiViewModel: Fetching classes...")
+            Logger.d("WikiViewModel: Fetching classes...")
             _uiState.value = WikiUiState.Loading
             try {
                 val response = apolloClient.query(GetClassesQuery()).execute()
-                println("WikiViewModel: Response received. hasErrors=${response.hasErrors()}")
+                Logger.d("WikiViewModel: Response received. hasErrors=${response.hasErrors()}")
                 if (response.hasErrors()) {
                     val errorMsg =
                         response.errors?.joinToString { it.message } ?: "Unknown GraphQL error"
-                    println("WikiViewModel: GraphQL errors: $errorMsg")
+                    Logger.d("WikiViewModel: GraphQL errors: $errorMsg")
                     _uiState.value = WikiUiState.Error(errorMsg)
                 } else {
                     val classes = response.data?.classes?.filterNotNull() ?: emptyList()
-                    println("WikiViewModel: Successfully fetched ${classes.size} classes")
+                    Logger.d("WikiViewModel: Successfully fetched ${classes.size} classes")
                     _uiState.value = WikiUiState.Success(classes)
                 }
             } catch (e: Exception) {
-                println("WikiViewModel: Exception during fetch: ${e.message}")
-                e.printStackTrace()
+                Logger.e("WikiViewModel: Exception during fetch", e)
                 _uiState.value = WikiUiState.Error(e.message ?: "Unknown error occurred")
             }
         }
@@ -60,11 +60,11 @@ class WikiViewModel(
 
     fun fetchClassDetail(index: String) {
         viewModelScope.launch {
-            println("WikiViewModel: Fetching detail for $index...")
+            Logger.d("WikiViewModel: Fetching detail for $index...")
             _uiState.value = WikiUiState.Loading
             try {
                 val response = apolloClient.query(GetClassDetailQuery(index)).execute()
-                println("WikiViewModel: Detail response received. hasErrors=${response.hasErrors()}")
+                Logger.d("WikiViewModel: Detail response received. hasErrors=${response.hasErrors()}")
                 if (response.hasErrors()) {
                     val errorMsg =
                         response.errors?.joinToString { it.message } ?: "Unknown GraphQL error"
@@ -78,7 +78,7 @@ class WikiViewModel(
                     }
                 }
             } catch (e: Exception) {
-                println("WikiViewModel: Exception during detail fetch: ${e.message}")
+                Logger.e("WikiViewModel: Exception during detail fetch: ${e.message}", e)
                 _uiState.value = WikiUiState.Error(e.message ?: "Unknown error occurred")
             }
         }

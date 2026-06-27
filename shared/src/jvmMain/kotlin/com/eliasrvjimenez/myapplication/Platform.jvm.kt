@@ -1,7 +1,11 @@
 package com.eliasrvjimenez.myapplication
 
-class JVMPlatform: Platform {
-    override val name: String = "Java ${System.getProperty("java.version")}"
-}
+class JVMPlatform(
+    override val name: String,
+    override val isDebug: Boolean
+) : Platform
 
-actual fun getPlatform(): Platform = JVMPlatform()
+actual fun getPlatform(): Platform = JVMPlatform(
+    name = "Java ${System.getProperty("java.version")}",
+    isDebug = System.getProperty("debug") == "true"
+)

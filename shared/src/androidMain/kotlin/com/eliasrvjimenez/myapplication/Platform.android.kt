@@ -2,8 +2,12 @@ package com.eliasrvjimenez.myapplication
 
 import android.os.Build
 
-class AndroidPlatform : Platform {
-    override val name: String = "Android ${Build.VERSION.SDK_INT}"
-}
+class AndroidPlatform(
+    override val name: String,
+    override val isDebug: Boolean
+) : Platform
 
-actual fun getPlatform(): Platform = AndroidPlatform()
+actual fun getPlatform(): Platform = AndroidPlatform(
+    name = "Android ${Build.VERSION.SDK_INT}",
+    isDebug = true // We can refine this if we pass context, but default to true for now or use a global flag
+)
