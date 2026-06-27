@@ -1,4 +1,4 @@
-package com.eliasrvjimenez.myapplication
+package com.eliasrvjimenez.myapplication.view.character
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

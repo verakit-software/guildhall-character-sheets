@@ -1,0 +1,63 @@
+#List Classes
+query GetClasses {
+    classes {
+        index
+        name
+        hit_die
+    }
+}
+
+# Get Detailed Class Info
+query GetClassDetail($index: String!) {
+    class(index: $index) {
+        index
+        name
+        hit_die
+        proficiencies {
+            name
+        }
+        saving_throws {
+            name
+        }
+        class_levels {
+            level
+            prof_bonus
+            features {
+                name
+                desc
+            }
+        }
+    }
+}
+
+# List Spells
+query GetSpells($limit: Int, $name: String) {
+    spells(limit: $limit, name: $name) {
+        index
+        name
+        level
+    }
+}
+
+# Detailed Spell Info
+query GetSpellDetail($index: String!) {
+    spell(index: $index) {
+        index
+        name
+        level
+        desc
+        range
+        components
+        duration
+        concentration
+        casting_time
+    }
+}
+
+# List Races
+query GetRaces($limit: Int) {
+    races(limit: $limit) {
+        index
+        name
+    }
+}
