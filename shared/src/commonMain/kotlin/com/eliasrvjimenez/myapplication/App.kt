@@ -58,7 +58,13 @@ fun App(
                 NavigationBar {
                     NavigationBarItem(
                         selected = currentRoute == NavigationRoutes.CHARACTER_LIST || currentRoute == NavigationRoutes.CHARACTER_CREATE,
-                        onClick = { navController.navigate(NavigationRoutes.CHARACTER_LIST) },
+                        onClick = {
+                            navController.navigate(NavigationRoutes.CHARACTER_LIST) {
+                                launchSingleTop = true
+                                restoreState = true
+                                popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            }
+                        },
                         icon = { Icon(Icons.Default.Person, contentDescription = "Characters") },
                         label = { Text("Characters") }
                     )
