@@ -78,7 +78,12 @@ fun WikiClassDetailView(
                     )
                 }
 
-                else -> {}
+                is WikiUiState.Success -> {
+                    Text(
+                        text = "No class selected.",
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
             }
         }
     }
