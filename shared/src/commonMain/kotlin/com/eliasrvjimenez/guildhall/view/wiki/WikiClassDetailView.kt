@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.eliasrvjimenez.guildhall.GetClassDetailQuery
+import com.eliasrvjimenez.guildhall.util.BuildBoldStringWithSubtext
 import com.eliasrvjimenez.guildhall.viewmodel.wiki.WikiUiState
 import com.eliasrvjimenez.guildhall.viewmodel.wiki.WikiViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -94,25 +95,31 @@ fun ClassDetailContent(classDetail: GetClassDetailQuery.Class) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             Text(
-                text = "Summary",
+                text = "Hit Points",
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold
             )
-            Text(
-                text = "Hit Die: d${classDetail.hit_die}",
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = "Saving Throws",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+            BuildBoldStringWithSubtext(
+                subject = "Hit Die",
+                subtext = "1d${classDetail.hit_die} per ${classDetail.name} level"
             )
-            Text(
-                text = classDetail.saving_throws?.filterNotNull()
-                    ?.joinToString { it.abilityScoreFields.name }
-                ?: "None")
+
+            BuildBoldStringWithSubtext(
+                subject = "Hit Points at First Level",
+                subtext = "${classDetail.hit_die} + your Constitution modifier"
+            )
+
+            BuildBoldStringWithSubtext(
+                subject = "Hit Points at Higher Levels",
+                subtext = "1d${classDetail.hit_die} + your Constitution modifier"
+            )
+
+            ProficienciesDetail(
+                proficiencyInfo = classDetail.proficiencies,
+                savingThrows = classDetail.saving_throws
+            )
+
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
@@ -126,6 +133,59 @@ fun ClassDetailContent(classDetail: GetClassDetailQuery.Class) {
         items(classDetail.class_levels.filterNotNull()) { levelInfo ->
             LevelInfoRow(levelInfo)
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+        }
+    }
+}
+
+@Composable
+fun ProficienciesDetail(
+    proficiencyInfo: List<GetClassDetailQuery.Proficiency>?,
+    savingThrows: List<GetClassDetailQuery.Saving_throw>?
+) {
+    val armorProficiencies = proficiencyInfo?.filter { proficiency ->
+        proficiency.proficiencyFields.type == "Armor"
+    }
+    val weaponProficiencies = proficiencyInfo?.filter { proficiency ->
+        proficiency.proficiencyFields.type == "Weapons"
+    }
+    val toolProficiency = proficiencyInfo?.filter { proficiency ->
+        proficiency.proficiencyFields.type == "Tools"
+    }
+    val skillProficiencies = proficiencyInfo?.filter { proficiency ->
+        proficiency.proficiencyFields.type == "Skills"
+    }
+    Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+        Text(
+            text = "Proficiencies",
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        if (!armorProficiencies.isNullOrEmpty()) {
+            BuildBoldStringWithSubtext(
+                subject = "Armor",
+                subtext = armorProficiencies.joinToString { it.proficiencyFields.name })
+        }
+        if (!weaponProficiencies.isNullOrEmpty()) {
+            BuildBoldStringWithSubtext(
+                subject = "Weapons",
+                subtext = weaponProficiencies.joinToString { it.proficiencyFields.name })
+        }
+        if (!toolProficiency.isNullOrEmpty()) {
+            BuildBoldStringWithSubtext(
+                subject = "Tools",
+                subtext = toolProficiency.joinToString { it.proficiencyFields.name })
+        }
+        if (!skillProficiencies.isNullOrEmpty()) {
+            BuildBoldStringWithSubtext(
+                subject = "Skills",
+                subtext = skillProficiencies.joinToString { it.proficiencyFields.name })
+        }
+        if (!savingThrows.isNullOrEmpty()) {
+            BuildBoldStringWithSubtext(
+                subject = "Saving Throws",
+                subtext = savingThrows.joinToString { it.abilityScoreFields.name }
+            )
         }
     }
 }
@@ -157,7 +217,7 @@ fun LevelInfoRow(levelInfo: GetClassDetailQuery.Class_level) {
             feature.desc.forEach { desc ->
                 Text(
                     text = desc,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }
