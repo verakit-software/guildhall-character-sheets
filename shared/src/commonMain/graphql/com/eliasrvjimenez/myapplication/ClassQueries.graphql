@@ -1,0 +1,47 @@
+# List Classes
+query GetClasses {
+    classes {
+        index
+        name
+        hit_die
+    }
+}
+
+# Detailed Class Info
+query GetClassDetail($index: String!) {
+    class(index: $index) {
+        index
+        name
+        hit_die
+        proficiencies {
+            ...ProficiencyFields
+        }
+        saving_throws {
+            ...AbilityScoreFields
+        }
+        starting_equipment {
+            quantity
+            equipment {
+                ... on IEquipment {
+                    name
+                }
+            }
+        }
+        spellcasting {
+            level
+            spellcasting_ability {
+                ...AbilityScoreFields
+            }
+            info {
+                name
+                desc
+            }
+        }
+        subclasses {
+            ...SubclassFields
+        }
+        class_levels {
+            ...LevelFields
+        }
+    }
+}

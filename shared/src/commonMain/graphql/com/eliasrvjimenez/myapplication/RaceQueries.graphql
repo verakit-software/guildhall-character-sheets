@@ -1,0 +1,38 @@
+# List Races
+query GetRaces($limit: Int) {
+    races(limit: $limit) {
+        index
+        name
+    }
+}
+
+# Detailed Race Info
+query GetRaceDetail($index: String!) {
+    race(index: $index) {
+        index
+        name
+        speed
+        ability_bonuses {
+            ability_score {
+                name
+            }
+            bonus
+        }
+        alignment
+        age
+        size
+        size_description
+        language_desc
+        languages {
+            name
+        }
+        traits {
+            name
+            desc
+        }
+        subraces {
+            name
+            desc
+        }
+    }
+}

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		4A071C6A6A05DE663DF2DA3D /* MyApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A071C6A6A05DE663DF2DA3D /* GuildHall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuildHall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -59,7 +59,7 @@
 		51033FD222DA49CAC3524C2E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4A071C6A6A05DE663DF2DA3D /* MyApplication.app */,
+				4A071C6A6A05DE663DF2DA3D /* GuildHall.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,7 +87,7 @@
 			packageProductDependencies = (
 			);
 			productName = iosApp;
-			productReference = 4A071C6A6A05DE663DF2DA3D /* MyApplication.app */;
+			productReference = 4A071C6A6A05DE663DF2DA3D /* GuildHall.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

@@ -1,0 +1,86 @@
+fragment AbilityScoreFields on AbilityScore {
+    index
+    name
+}
+
+fragment ProficiencyFields on Proficiency {
+    index
+    name
+    type
+}
+
+fragment FeatureFields on Feature {
+    index
+    name
+    level
+    desc
+}
+
+fragment SubclassFields on Subclass {
+    index
+    name
+    desc
+    subclass_flavor
+}
+
+fragment ClassSpecificFields on ClassSpecific {
+    action_surges
+    arcane_recovery_levels
+    aura_range
+    bardic_inspiration_die
+    brutal_critical_dice
+    channel_divinity_charges
+    destroy_undead_cr
+    extra_attacks
+    favored_enemies
+    favored_terrain
+    indomitable_uses
+    invocations_known
+    ki_points
+    martial_arts {
+        dice_count
+        dice_value
+    }
+    metamagic_known
+    mystic_arcanum_level_6
+    mystic_arcanum_level_7
+    mystic_arcanum_level_8
+    mystic_arcanum_level_9
+    rage_count
+    rage_damage_bonus
+    sneak_attack {
+        dice_count
+        dice_value
+    }
+    song_of_rest_die
+    sorcery_points
+    unarmored_movement
+    wild_shape_fly
+    wild_shape_max_cr
+    wild_shape_swim
+}
+
+fragment LevelFields on Level {
+    level
+    prof_bonus
+    ability_score_bonuses
+    features {
+        ...FeatureFields
+    }
+    class_specific {
+        ...ClassSpecificFields
+    }
+    spellcasting {
+        cantrips_known
+        spell_slots_level_1
+        spell_slots_level_2
+        spell_slots_level_3
+        spell_slots_level_4
+        spell_slots_level_5
+        spell_slots_level_6
+        spell_slots_level_7
+        spell_slots_level_8
+        spell_slots_level_9
+        spells_known
+    }
+}

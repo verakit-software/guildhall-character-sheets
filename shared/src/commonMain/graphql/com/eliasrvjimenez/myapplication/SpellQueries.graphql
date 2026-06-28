@@ -1,0 +1,31 @@
+# List Spells
+query GetSpells($limit: Int, $name: String) {
+    spells(limit: $limit, name: $name) {
+        index
+        name
+        level
+    }
+}
+
+# Detailed Spell Info
+query GetSpellDetail($index: String!) {
+    spell(index: $index) {
+        index
+        name
+        level
+        desc
+        range
+        components
+        duration
+        concentration
+        casting_time
+        material
+        ritual
+        attack_type
+        damage {
+            damage_type {
+                name
+            }
+        }
+    }
+}

@@ -17,11 +17,11 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "com.eliasrvjimenez.myapplication.MainKt"
+        mainClass = "com.eliasrvjimenez.guildhall.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.eliasrvjimenez.myapplication"
+            packageName = "com.eliasrvjimenez.guildhall"
             packageVersion = "1.0.0"
         }
     }

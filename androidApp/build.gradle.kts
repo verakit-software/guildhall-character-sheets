@@ -21,11 +21,11 @@ dependencies {
 }
 
 android {
-    namespace = "com.eliasrvjimenez.myapplication"
+    namespace = "com.eliasrvjimenez.guildhall"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.eliasrvjimenez.myapplication"
+        applicationId = "com.eliasrvjimenez.guildhall"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
